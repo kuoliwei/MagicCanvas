@@ -44,7 +44,22 @@ public class WebSocketMessageReceiverAsync : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetMouseButton(0))
+        {
+            // 1. 建立模擬 BrushData 的 JSON 字串
+            Vector2 mousePos = Input.mousePosition;
+            Vector2 normalized = new Vector2(
+                mousePos.x / Screen.width,
+                1f - (mousePos.y / Screen.height)
+            );
 
+            string json = $"{{\"data\":[{{\"roller_id\":0,\"point\":[{normalized.x},{normalized.y}]}}]}}";
+            Debug.Log("normalized.y :" + normalized.y);
+            // 2. 呼叫 WebSocketMessageReceiverAsync 處理 JSON
+            SendMessageManually(json);
+
+            //scratchCount++;
+        }
         int processed = 0;
         {//限制每幀資料筆數
             //int maxProcessPerFrame = 128;

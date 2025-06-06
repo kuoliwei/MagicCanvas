@@ -6,15 +6,11 @@ using System.Collections.Generic;
 
 public class ScratchCard : MonoBehaviour, IPointerDownHandler
 {
-    public Sprite maskImage;
+    private Sprite maskImage;
     public RawImage rawImage;
-    public Texture brushTexture;
-    public Material eraseMaterial;
-    public float brushSize = 64f;
-
-    [Header("進階設定")]
-    public float clearThreshold = 0.6f;
-    public float restoreSpeed = 1f;
+    private Texture brushTexture;
+    private Material eraseMaterial;
+    private float brushSize = 64f;
 
     private RenderTexture renderTex;
     private RectTransform rect;
@@ -26,12 +22,13 @@ public class ScratchCard : MonoBehaviour, IPointerDownHandler
     [SerializeField] int maxUvPerFrame = 32;
     private void Start()
     {
-        //rawImage.material = eraseMaterial;
+
+    }
+    public void Init()
+    {
         rect = rawImage.rectTransform;
         renderTex = new RenderTexture(Screen.width, Screen.height, 0, RenderTextureFormat.ARGB32);
         renderTex.Create();
-
-        ResetScratch();
         rawImage.texture = renderTex;
     }
 
@@ -80,10 +77,10 @@ public class ScratchCard : MonoBehaviour, IPointerDownHandler
 
         rawImage.texture = renderTex;
 
-        if (!isFullyRevealed && GetClearedRatio() >= clearThreshold)
-        {
-            ShowFullImage();
-        }
+        //if (!isFullyRevealed && GetClearedRatio() >= clearThreshold)
+        //{
+        //    ShowFullImage();
+        //}
     }
     public void DrawTransparentAt(List<Vector2> uvList)
     {
@@ -149,10 +146,10 @@ public class ScratchCard : MonoBehaviour, IPointerDownHandler
 
             rawImage.texture = renderTex;
 
-            if (!isFullyRevealed && GetClearedRatio() >= clearThreshold)
-            {
-                ShowFullImage();
-            }
+            //if (!isFullyRevealed && GetClearedRatio() >= clearThreshold)
+            //{
+            //    ShowFullImage();
+            //}
         }
     }
     public float GetClearedRatio()
@@ -167,7 +164,7 @@ public class ScratchCard : MonoBehaviour, IPointerDownHandler
         int cleared = 0;
         for (int i = 0; i < pixels.Length; i++)
         {
-            if (pixels[i].a < 2) cleared++;
+            if (pixels[i].a < 8) cleared++;
         }
 
         Destroy(tempTex);
@@ -191,7 +188,7 @@ public class ScratchCard : MonoBehaviour, IPointerDownHandler
         OnFullyRevealed?.Invoke();
     }
 
-    public IEnumerator SmoothRestoreMask()
+    public IEnumerator SmoothRestoreMask(float restoreSpeed)
     {
         if (croppedTex == null || renderTex == null) yield break;
 
@@ -222,11 +219,22 @@ public class ScratchCard : MonoBehaviour, IPointerDownHandler
         Destroy(restoreTex);
     }
 
+    public void EraseAtNormalizedUV(Vector2 uv)
+    {
+        if (uv.x >= 0 && uv.x <= 1 && uv.y >= 0 && uv.y <= 1)
+        {
+            uvQueue.Enqueue(uv);
+        }
+    }
+
     public void EraseAtScreenPosition(Vector2 screenPos)
     {
         if (rect == null) rect = rawImage.rectTransform;
 
-        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(rect, screenPos, null, out Vector2 localPos))
+        //if (RectTransformUtility.ScreenPointToLocalPointInRectangle(rect, screenPos, null, out Vector2 localPos))
+        // [改動] 為 World Space Canvas 提供有效 camera，避免位置轉換失敗
+        Camera eventCam = rawImage.canvas.renderMode == RenderMode.WorldSpace ? rawImage.canvas.worldCamera : null;
+        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(rect, screenPos, eventCam, out Vector2 localPos))
         {
             Vector2 uv = new Vector2(
                 (localPos.x + rect.rect.width * 0.5f) / rect.rect.width,
@@ -247,23 +255,6 @@ public class ScratchCard : MonoBehaviour, IPointerDownHandler
     private float timer = 0f;
     private void Update()
     {
-        //if (Input.GetMouseButton(0))
-        //{
-        //    // 1. 建立模擬 BrushData 的 JSON 字串
-        //    Vector2 mousePos = Input.mousePosition;
-        //    Vector2 normalized = new Vector2(
-        //        mousePos.x / Screen.width,
-        //        1f - (mousePos.y / Screen.height)
-        //    );
-
-        //    string json = $"{{\"data\":[{{\"roller_id\":0,\"point\":[{normalized.x},{normalized.y}]}}]}}";
-        //    Debug.Log("normalized.y :" + normalized.y);
-        //    // 2. 呼叫 WebSocketMessageReceiverAsync 處理 JSON
-        //    receiver.SendMessageManually(json);
-
-        //    //scratchCount++;
-        //}
-
         //timer += Time.deltaTime;
         //if (timer >= 1f)
         //{
@@ -370,5 +361,11 @@ public class ScratchCard : MonoBehaviour, IPointerDownHandler
     public void SetMask(Sprite newMask)
     {
         maskImage = newMask;
+    }
+    public void SetBrush(Texture brush, Material material, float size)
+    {
+        this.brushTexture = brush;
+        this.eraseMaterial = material;
+        this.brushSize = size;
     }
 }
