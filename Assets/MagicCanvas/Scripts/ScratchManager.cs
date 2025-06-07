@@ -21,15 +21,14 @@ public class ScratchManager : MonoBehaviour
 
     private int currentIndex = 0;
     private bool imageFullyRevealed = false;
-    private Coroutine restoreRoutine;
-
+    private List<Coroutine> restoreRoutines = new List<Coroutine>();      // –祘
+    private HashSet<ScratchCard> revealedCards = new HashSet<ScratchCard>(); // 癘魁处惧
     void Start()
     {
         foreach (var card in scratchCards)
         {
             card.Init();
             card.SetBrush(brushTexture, eraseMaterial, brushSize); // [穝糤] ﹍て掸把计
-            card.OnFullyRevealed += () => OnScratchCleared(card);
         }
         ShowImageAt(0);
     }
@@ -39,6 +38,13 @@ public class ScratchManager : MonoBehaviour
         if (index >= backgroundImages.Count) index = 0;
         currentIndex = index;
         imageFullyRevealed = false;
+        // [穝糤] 氨ゎ┮Τ祘
+        foreach (var routine in restoreRoutines)
+        {
+            if (routine != null) StopCoroutine(routine);
+        }
+        restoreRoutines.Clear();
+        revealedCards.Clear(); // 睲处惧魁
         foreach (var renderer in backgroundRenderers)
         {
             renderer.texture = backgroundImages[index];
@@ -51,15 +57,15 @@ public class ScratchManager : MonoBehaviour
         }
     }
     // э矪瞶㊣ぃ参矪瞶┮Τ
-    public void OnScratchCleared(ScratchCard caller)
-    {
-        if (!imageFullyRevealed)
-        {
-            imageFullyRevealed = true;
-            caller.ShowFullImage();
-            restoreRoutine = StartCoroutine(AutoRestoreAfterDelay(caller));
-        }
-    }
+    //public void OnScratchCleared(ScratchCard caller)
+    //{
+    //    if (!imageFullyRevealed)
+    //    {
+    //        imageFullyRevealed = true;
+    //        caller.ShowFullImage();
+    //        restoreRoutine = StartCoroutine(AutoRestoreAfterDelay(caller));
+    //    }
+    //}
     //public void OnScratchCleared() // パ ScratchCard ㊣
     //{
     //    if (!imageFullyRevealed)
@@ -74,7 +80,11 @@ public class ScratchManager : MonoBehaviour
     {
         yield return new WaitForSeconds(revealHoldTime);
         yield return target.SmoothRestoreMask(restoreSpeed);
-        ShowImageAt(currentIndex + 1);
+        // ┮Τ常处惧筁祘禲Чち传
+        if (revealedCards.Count >= scratchCards.Count)
+        {
+            ShowImageAt(currentIndex + 1);
+        }
     }
     //private IEnumerator AutoRestoreAfterDelay()
     //{
@@ -83,27 +93,38 @@ public class ScratchManager : MonoBehaviour
     //    ShowImageAt(currentIndex + 1);
     //}
 
-    public void CancelRestore()
-    {
-        if (restoreRoutine != null)
-        {
-            StopCoroutine(restoreRoutine);
-            restoreRoutine = null;
-        }
-    }
+    //public void CancelRestore()
+    //{
+    //    if (restoreRoutine != null)
+    //    {
+    //        StopCoroutine(restoreRoutine);
+    //        restoreRoutine = null;
+    //    }
+    //}
     private void Update()
     {
         if (!imageFullyRevealed)
         {
             foreach (var card in scratchCards)
             {
-                if (card.GetClearedRatio() >= clearThreshold)
+                if (!revealedCards.Contains(card) && card.GetClearedRatio() >= clearThreshold)
                 {
-                    imageFullyRevealed = true;
-                    card.ShowFullImage();
-                    restoreRoutine = StartCoroutine(AutoRestoreAfterDelay(card));
-                    break;
+                    revealedCards.Add(card);                // 处惧栋
+                    card.ShowFullImage();                   // 陪ボ瓜
+                    var routine = StartCoroutine(AutoRestoreAfterDelay(card));
+                    restoreRoutines.Add(routine);
                 }
+                if (revealedCards.Count >= scratchCards.Count)
+                {
+                    imageFullyRevealed = true; // 场处惧癘Ω
+                }
+                //if (card.GetClearedRatio() >= clearThreshold)
+                //{
+                //    imageFullyRevealed = true;
+                //    card.ShowFullImage();
+                //    restoreRoutine = StartCoroutine(AutoRestoreAfterDelay(card));
+                //    break;
+                //}
             }
         }
     }
