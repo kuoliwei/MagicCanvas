@@ -370,7 +370,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!223 &357561064
 Canvas:
   m_ObjectHideFlags: 0
@@ -380,9 +380,9 @@ Canvas:
   m_GameObject: {fileID: 357561061}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 2
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
+  m_RenderMode: 1
+  m_Camera: {fileID: 963194227}
+  m_PlaneDistance: 900
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
@@ -403,7 +403,7 @@ RectTransform:
   m_GameObject: {fileID: 357561061}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1184856165}
@@ -412,9 +412,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 3116, y: 540}
-  m_SizeDelta: {x: 1920, y: 1080}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0, y: 0}
 --- !u!1 &419874205
 GameObject:
   m_ObjectHideFlags: 0
@@ -561,6 +561,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 419874205}
   m_CullTransparentMesh: 1
+--- !u!1 &436245563
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 436245565}
+  - component: {fileID: 436245564}
+  m_Layer: 0
+  m_Name: 'HandParticleEffectSpawner '
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &436245564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 436245563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c64b875a744ed14c99487c424a47507, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particlePrefab: {fileID: 5972571140741848076, guid: 4246907502cca7f4dac9edfdc82168e1, type: 3}
+  canvasRect: {fileID: 357561065}
+--- !u!4 &436245565
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 436245563}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -3369.375, y: -76.84985, z: -672.92084}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2098079718}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &567822257
 GameObject:
   m_ObjectHideFlags: 0
@@ -631,7 +677,7 @@ Canvas:
   serializedVersion: 3
   m_RenderMode: 2
   m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
+  m_PlaneDistance: 15
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
@@ -661,7 +707,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 5414, y: 540}
+  m_AnchoredPosition: {x: 3386, y: 540}
   m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &648801666
@@ -1010,7 +1056,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rawImage: {fileID: 748250909}
   maxUvPerFrame: 32
-  receiver: {fileID: 200538378}
 --- !u!114 &748250909
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1236,11 +1281,11 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0
   far clip plane: 1000
   field of view: 60
-  orthographic: 0
-  orthographic size: 5
+  orthographic: 1
+  orthographic size: 540
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1265,7 +1310,7 @@ Transform:
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: -1000}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1692,7 +1737,7 @@ MonoBehaviour:
   clearThreshold: 0.6
   revealHoldTime: 15
   restoreSpeed: 1
-  brushTexture: {fileID: 2800000, guid: 6729966f3c78bb44a8184ee241207fb8, type: 3}
+  brushTexture: {fileID: 2800000, guid: fb74b071f1f03d247a8589116dfab1d2, type: 3}
   eraseMaterial: {fileID: 2100000, guid: 737ce07d2fea8aa429914ec5570ddd51, type: 2}
   brushSize: 256
 --- !u!4 &1516002708
@@ -1836,6 +1881,7 @@ MonoBehaviour:
   scratchCards:
   - {fileID: 1791305215}
   - {fileID: 748250908}
+  spawner: {fileID: 436245564}
 --- !u!1 &1640138959
 GameObject:
   m_ObjectHideFlags: 0
@@ -2076,8 +2122,8 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 0
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
+  m_Camera: {fileID: 963194227}
+  m_PlaneDistance: 15
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
@@ -2162,7 +2208,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rawImage: {fileID: 1791305216}
   maxUvPerFrame: 32
-  receiver: {fileID: 200538378}
 --- !u!114 &1791305216
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2616,6 +2661,7 @@ Transform:
   - {fileID: 1516002708}
   - {fileID: 200538379}
   - {fileID: 1769704883}
+  - {fileID: 436245565}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2103315034
