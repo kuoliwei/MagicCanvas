@@ -35,6 +35,7 @@ public class ScratchCard : MonoBehaviour, IPointerDownHandler
     public void ResetScratch()
     {
         isFullyRevealed = false;
+        isRevealing = false;
 
         if (renderTex == null || maskImage == null)
         {
@@ -170,10 +171,11 @@ public class ScratchCard : MonoBehaviour, IPointerDownHandler
         Destroy(tempTex);
         return (float)cleared / pixels.Length;
     }
-
+    public bool isRevealing = false;
     public void ShowFullImage()
     {
         isFullyRevealed = true;
+        isRevealing = true;
 
         Texture2D clearTex = new Texture2D(renderTex.width, renderTex.height);
         Color32[] pixels = new Color32[renderTex.width * renderTex.height];

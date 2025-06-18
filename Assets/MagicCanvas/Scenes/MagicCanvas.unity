@@ -363,7 +363,7 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 1920, y: 1080}
+  m_ReferenceResolution: {x: 1200, y: 1020}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -708,7 +708,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 3386, y: 540}
-  m_SizeDelta: {x: 1920, y: 1080}
+  m_SizeDelta: {x: 1200, y: 1020}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &648801666
 GameObject:
@@ -1056,6 +1056,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rawImage: {fileID: 748250909}
   maxUvPerFrame: 32
+  isRevealing: 0
 --- !u!114 &748250909
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1719,12 +1720,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maskImages:
-  - {fileID: 21300000, guid: 87a9573aa147e914c84b72431eabcc56, type: 3}
-  - {fileID: 21300000, guid: 87a9573aa147e914c84b72431eabcc56, type: 3}
-  - {fileID: 21300000, guid: 87a9573aa147e914c84b72431eabcc56, type: 3}
-  - {fileID: 21300000, guid: 87a9573aa147e914c84b72431eabcc56, type: 3}
+  - {fileID: 21300000, guid: 6f19426bad3c5f44dbd3779ab5fae4f3, type: 3}
+  - {fileID: 21300000, guid: 6f19426bad3c5f44dbd3779ab5fae4f3, type: 3}
+  - {fileID: 21300000, guid: 6f19426bad3c5f44dbd3779ab5fae4f3, type: 3}
+  - {fileID: 21300000, guid: 6f19426bad3c5f44dbd3779ab5fae4f3, type: 3}
   backgroundImages:
-  - {fileID: 2800000, guid: eed8c2a34a45aca43a7cf333408a5adf, type: 3}
+  - {fileID: 2800000, guid: d1f796a16fb6c0e45a5e2a02cddd58ea, type: 3}
   - {fileID: 2800000, guid: 3778f44b7527a424989abfc0deb11217, type: 3}
   - {fileID: 2800000, guid: 2f54c6356df46334b9cfb358c0910765, type: 3}
   - {fileID: 2800000, guid: c286872cf16bfcb4f8c65269ccd41a2f, type: 3}
@@ -1882,6 +1883,7 @@ MonoBehaviour:
   - {fileID: 1791305215}
   - {fileID: 748250908}
   spawner: {fileID: 436245564}
+  isRevealing: 0
 --- !u!1 &1640138959
 GameObject:
   m_ObjectHideFlags: 0
@@ -2104,7 +2106,7 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 1920, y: 1080}
+  m_ReferenceResolution: {x: 1200, y: 1020}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -2130,7 +2132,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 25
+  m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -2208,6 +2210,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rawImage: {fileID: 1791305216}
   maxUvPerFrame: 32
+  isRevealing: 0
 --- !u!114 &1791305216
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2520,7 +2523,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

@@ -56,25 +56,6 @@ public class ScratchManager : MonoBehaviour
             card.ResetScratch();
         }
     }
-    // 修改：只處理呼叫者，不統一處理所有卡片
-    //public void OnScratchCleared(ScratchCard caller)
-    //{
-    //    if (!imageFullyRevealed)
-    //    {
-    //        imageFullyRevealed = true;
-    //        caller.ShowFullImage();
-    //        restoreRoutine = StartCoroutine(AutoRestoreAfterDelay(caller));
-    //    }
-    //}
-    //public void OnScratchCleared() // 由 ScratchCard 呼叫
-    //{
-    //    if (!imageFullyRevealed)
-    //    {
-    //        imageFullyRevealed = true;
-    //        scratchCard.ShowFullImage();
-    //        restoreRoutine = StartCoroutine(AutoRestoreAfterDelay());
-    //    }
-    //}
 
     private IEnumerator AutoRestoreAfterDelay(ScratchCard target)
     {
@@ -86,21 +67,7 @@ public class ScratchManager : MonoBehaviour
             ShowImageAt(currentIndex + 1);
         }
     }
-    //private IEnumerator AutoRestoreAfterDelay()
-    //{
-    //    yield return new WaitForSeconds(revealHoldTime);
-    //    yield return scratchCard.SmoothRestoreMask();
-    //    ShowImageAt(currentIndex + 1);
-    //}
 
-    //public void CancelRestore()
-    //{
-    //    if (restoreRoutine != null)
-    //    {
-    //        StopCoroutine(restoreRoutine);
-    //        restoreRoutine = null;
-    //    }
-    //}
     private void Update()
     {
         if (!imageFullyRevealed)
@@ -118,13 +85,6 @@ public class ScratchManager : MonoBehaviour
                 {
                     imageFullyRevealed = true; // 全部揭曉後只記一次
                 }
-                //if (card.GetClearedRatio() >= clearThreshold)
-                //{
-                //    imageFullyRevealed = true;
-                //    card.ShowFullImage();
-                //    restoreRoutine = StartCoroutine(AutoRestoreAfterDelay(card));
-                //    break;
-                //}
             }
         }
     }
